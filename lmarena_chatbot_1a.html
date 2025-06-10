@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Assistant</title>
+    <style>
+        /* Chat button styles */
+        #ai-chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+
+        #ai-chat-button:hover {
+            background-color: #3367d6;
+            transform: scale(1.05);
+        }
+
+        /* Chat mole container */
+        #ai-chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+
+        /* Chat header */
+        #ai-chat-header {
+            background-color: #4285f4;
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #ai-chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Chat messages area */
+        #ai-chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        /* Individual messages */
+        .ai-chat-message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #4285f4;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-message {
+            background-color: #e3f2fd;
+            color: #000;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+
+        /* Chat input area */
+        #ai-chat-input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e0e0e0;
+            background-color: white;
+        }
+
+        #ai-chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        #ai-chat-send {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        #ai-chat-send:hover {
+            background-color: #3367d6;
+        }
+
+        /* Action buttons */
+        #ai-chat-actions {
+            display: flex;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: white;
+        }
+
+        .ai-chat-action-btn {
+            flex: 1;
+            margin: 0 5px;
+            padding: 8px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .ai-chat-action-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Loading indicator */
+        .typing-indicator {
+            display: flex;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            margin: 0 2px;
+            background-color: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+<pre>
+# Floating AI Chat Assistant for Websites
+
+This example was generated by Assistant A of https://lmarena.ai/c/442cde63-32b7-46bf-be3d-dae668144711 given the initial prompt:
+  - make a button that can be shown on the corner of any website. When clicked, it opens a chat mole with a helpful AI agent. The chat mole has a text field where users can submit questions about the site, which are answered by Chrome's Built-In LanguageModel (aka Prompt) API, which has been prepopulated with context about the page and overall site and any user context. There's also a button users can easily click in the chat mole to "summarize this page" which provides a short 1-2 sentence summary of the page derived from on-page text the overall site and user context.
+
+This example made functional with about 10 lines of code changes in about 10 minutes of msw@ tweaking the result.
+
+Here's a complete implementation for a floating chat button that opens an AI assistant powered by Chrome's built-in LanguageModel API. This solution includes the button, chat interface, and functionality to summarize pages.
+
+## HTML Implementation
+
+```html
+  See the source of this page!
+```
+
+## Key Features
+
+1. **Floating Chat Button**: A circular button that stays fixed in the bottom-right corner of the page.
+
+2. **Chat Interface**:
+   - Clean, modern design with message bubbles
+   - Typing indicators for better UX
+   - Scrollable message area
+
+3. **AI Functionality**:
+   - Uses Chrome's built-in LanguageModel API
+   - Gathers page context (title, URL, description, and main content)
+   - Provides intelligent responses based on page content
+
+4. **Special Features**:
+   - "Summarize Page" button that generates a concise summary
+   - Help button with usage suggestions
+   - Responsive design that works on different screen sizes
+
+5. **User Experience**:
+   - Smooth animations and transitions
+   - Easy to open/close
+   - Clear visual hierarchy
+
+## Implementation Notes
+
+1. This code should be added to any webpage where you want the AI assistant to appear.
+
+2. The implementation checks for the availability of Chrome's LanguageModel API and falls back gracefully if it's not available.
+
+3. The AI responses are generated based on:
+   - Page title
+   - URL
+   - Meta description
+   - Main content (first 5000 characters)
+
+4. The summarization feature specifically asks for a 1-2 sentence summary to keep responses concise.
+
+5. The chat maintains conversation history within the session.
+
+To use this, simply add the entire HTML code to your webpage, or include it as a separate component that can be injected into any page.
+</pre>
+
+    <!-- Chat button -->
+    <button id="ai-chat-button">?</button>
+
+    <!-- Chat container -->
+    <div id="ai-chat-container">
+        <div id="ai-chat-header">
+            <span>AI Assistant</span>
+            <button id="ai-chat-close">×</button>
+        </div>
+
+        <div id="ai-chat-actions">
+            <button class="ai-chat-action-btn" id="summarize-btn">Summarize Page</button>
+            <button class="ai-chat-action-btn" id="help-btn">Help</button>
+        </div>
+
+        <div id="ai-chat-messages">
+            <!-- Messages will appear here -->
+            <!-- <div class="ai-chat-message ai-message">
+                Hello! I'm your AI assistant. How can I help you with this page?
+            </div> -->
+        </div>
+
+        <div id="ai-chat-input-container">
+            <input type="text" id="ai-chat-input" placeholder="Ask me about this page...">
+            <button id="ai-chat-send">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Check if the LanguageModel API is available
+        if (!window.LanguageModel) {
+            console.warn("Chrome's LanguageModel API is not available in this browser.");
+        }
+
+        // DOM elements
+        const chatButton = document.getElementById('ai-chat-button');
+        const chatContainer = document.getElementById('ai-chat-container');
+        const chatClose = document.getElementById('ai-chat-close');
+        const chatMessages = document.getElementById('ai-chat-messages');
+        const chatInput = document.getElementById('ai-chat-input');
+        const chatSend = document.getElementById('ai-chat-send');
+        const summarizeBtn = document.getElementById('summarize-btn');
+        const helpBtn = document.getElementById('help-btn');
+
+        // TODO(msw): Integrate LanguageModel Built-In AI APIs 
+        let languageModel;
+
+        // Toggle chat visibility
+        chatButton.addEventListener('click', () => {
+            // TODO(msw): Integrate LanguageModel Built-In AI APIs 
+            LanguageModel.create().then((lm) => { languageModel = lm; });
+            chatContainer.style.display = 'flex';
+            chatButton.style.display = 'none';
+            chatInput.focus();
+        });
+
+        chatClose.addEventListener('click', () => {
+            chatContainer.style.display = 'none';
+            chatButton.style.display = 'block';
+        });
+
+        // Handle sending messages
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Summarize button
+        summarizeBtn.addEventListener('click', () => {
+            summarizePage();
+        });
+
+        // Help button
+        helpBtn.addEventListener('click', () => {
+            addMessage("AI Assistant", "I can help you with information about this page. Try asking questions like: 'What is this page about?', 'How do I use this feature?', or 'Where can I find more information?'");
+        });
+
+        // Function to add a message to the chat
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('ai-chat-message');
+            messageDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // // TODO(msw): Integrate LanguageModel Built-In AI APIs 
+            // if (sender === 'user') {
+            //   const response = lm.prompt(text).then((response) => {
+            //     addMessage("AI Assistant", "thinking...");
+            //     addMessage("AI Assistant", response);
+            //   });
+            // }
+        }
+
+        // Function to show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return typingDiv;
+        }
+
+        // Function to remove typing indicator
+        function removeTypingIndicator(typingDiv) {
+            if (typingDiv && typingDiv.parentNode) {
+                chatMessages.removeChild(typingDiv);
+            }
+        }
+
+        // Function to send a message
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addMessage('user', message);
+            chatInput.value = '';
+
+            // Show typing indicator
+            const typingDiv = showTypingIndicator();
+
+            try {
+                // Get page context
+                const pageContext = await getPageContext();
+
+                // Prepare the prompt
+                const prompt = `You are a helpful AI assistant for this website. Here's some context about the page:
+                ${pageContext}
+
+                User question: ${message}
+
+                Please provide a helpful response based on the page content and context, making the answer as concise as possible, 3 sentences or fewer.`;
+
+
+                // Use Chrome's LanguageModel API
+                // TODO(msw): Integrate LanguageModel Built-In AI APIs 
+                // console.log(prompt);
+                const response = await languageModel.prompt(prompt);
+                // const response = await LanguageModel.prompt({
+                //     prompt: prompt,
+                //     temperature: 0.7,
+                //     maxOutputTokens: 500
+                // });
+
+                removeTypingIndicator(typingDiv);
+                addMessage("AI Assistant", response);
+            } catch (error) {
+                console.error("Error generating response:", error);
+                removeTypingIndicator(typingDiv);
+                addMessage("AI Assistant", "Sorry, I encountered an error while processing your request.");
+            }
+        }
+
+        // Function to summarize the page
+        async function summarizePage() {
+            // Show typing indicator
+            const typingDiv = showTypingIndicator();
+
+            try {
+                // Get page context
+                const pageContext = await getPageContext();
+
+                // Prepare the prompt for summarization
+                const prompt = `You are a helpful AI assistant. Please provide a concise 1-2 sentence summary of this page based on the following content:
+
+                ${pageContext}
+
+                Summary:`;
+
+                // Use Chrome's LanguageModel API
+                // TODO(msw): Integrate LanguageModel Built-In AI APIs 
+                const summarizer = await Summarizer.create();
+                const summary = await summarizer.summarize(prompt);
+
+                removeTypingIndicator(typingDiv);
+                addMessage("AI Assistant", summary);
+            } catch (error) {
+                console.error("Error generating summary:", error);
+                removeTypingIndicator(typingDiv);
+                addMessage("AI Assistant", "Sorry, I couldn't generate a summary for this page.");
+            }
+        }
+
+        // Function to gather page context
+        async function getPageContext() {
+            // Get page title
+            const title = document.title;
+
+            // Get main content (simplified approach)
+            const mainContent = document.body.innerText
+                .replace(/\s+/g, ' ')
+                .trim()
+                .substring(0, 5000); // Limit to first 5000 characters
+
+            // Get current URL
+            const url = window.location.href;
+
+            // Get page metadata
+            const metaDescription = document.querySelector('meta[name="description"]')?.content || '';
+
+            // Combine all context
+            return `Page Title: ${title}\nURL: ${url}\nDescription: ${metaDescription}\n\nMain Content:\n${mainContent}`;
+        }
+
+        // Initialize the chat
+        function initChat() {
+            // Add initial message
+            addMessage("AI Assistant", "Hello! I'm your AI assistant. How can I help you with this page?");
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initChat);
+    </script>
+</body>
+</html>
