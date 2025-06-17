@@ -53,7 +53,7 @@
             Make a button that can be shown on the corner of any website. When clicked, it opens a chat mole with a helpful AI agent.
             The chat mole has a text field where users can submit questions about the site, which are answered by Chrome's Built-In LanguageModel (aka Prompt) API, which has been prepopulated with context about the page and overall site and any user context.
             There's also a button users can easily click in the chat mole to "summarize this page" which provides a short 1-2 sentence summary of the page derived from on-page text the overall site and user context.
-        * The initial reponse included: `Here's a complete implementation for a floating chat button that opens an AI assistant powered by Chrome's built-in LanguageModel API. This solution includes the button, chat interface, and functionality to summarize pages, and change the assistant's response language.`
+            * The initial reponse included: `Here's a complete implementation for a floating chat button that opens an AI assistant powered by Chrome's built-in LanguageModel API. This solution includes the button, chat interface, and functionality to summarize pages, and change the assistant's response language.`
         * Minimal functionality was implemented with about 10 lines of code changes in about 10 minutes - <a href="https://michaelwasserman.github.io/ai-examples/lmarena_chatbot_1a.html">try it here</a>.
         * An alternative initial demo can be tested <a href="https://michaelwasserman.github.io/ai-examples/lmarena_chatbot_1b.html">here</a>
         * Followup refinements made by <a href="https://github.com/michaelwasserman">michaelwasserman</a>'s artisinal keyboard clacking and <a href="https://gemini.google.com/">Gemini</a> include:
@@ -161,7 +161,7 @@
 
         async function addMessage(sender, text, isHTML = false) {
             if (sender == 'ai' && translator) {
-                text = await translator.translate(text);
+                text = await getTranslation(text);
             }
 
             const messageDiv = document.createElement('div');
@@ -227,13 +227,13 @@
             removeTypingIndicator(typingDiv);
         }
 
-        async function getTranslation(language, content = undefined) {
+        async function getTranslation(content) {
+            if (!translator) return content;
             try {
-                const translator = await Translator.create({sourceLanguage: 'en', targetLanguage: language});
                 return await translator.translate(content);
             } catch (error) {
                 console.error("Error translating: ", error);
-                return "Sorry, I couldn't translate the text. Try Chrome Canary?";
+                return `Sorry, I couldn't translate the text: "${content}". Try Chrome Canary?`;
             }
         }
 
@@ -243,6 +243,7 @@
             if (language && language != 'EN') {
                 try {
                     translator = await Translator.create({sourceLanguage: 'en', targetLanguage: language});
+                    chatInput.placeholder = await getTranslation("Ask me about this page...");
                 } catch (error) {
                     console.error("Error creating translator: ", error);
                 }
