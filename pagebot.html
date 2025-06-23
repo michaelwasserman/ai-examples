@@ -123,18 +123,13 @@
             chatButton.style.display = 'block';
         });
 
-        chatSend.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+        chatSend.addEventListener('click', (e) => { sendMessage() });
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
         // From https://crsrc.org/c/chrome/browser/on_device_translation/language_pack_util.h
         const languages = ['EN', 'ES', 'JA', 'AR', 'BN', 'DE', 'FR', 'HI', 'IT', 'KO', 'NL', 'PL', 'PT', 'RU', 'TH', 'TR', 'VI', 'ZH', 'BG', 'CS', 'DA', 'EL', 'FI', 'HR', 'HU', 'ID', 'IW', 'LT', 'NO', 'RO', 'SK', 'SL', 'SV', 'UK', 'KN', 'TA', 'TE', 'MR'];
-        for(l of languages) {
-            languageSelect.options.add(new Option(l, l));
-        }
-        languageSelect.addEventListener('change', async (e) => {
-            setLanguage(e.target.value);
-        });
+        for (l of languages) { languageSelect.options.add(new Option(l, l)); }
+        languageSelect.addEventListener('change', async (e) => { setLanguage(e.target.value); });
 
         // Event delegation for action links
         chatMessages.addEventListener('click', (e) => {
@@ -197,12 +192,12 @@
             addMessage('user', message);
             chatInput.value = '';
             const typingDiv = showTypingIndicator();
-            let response = "Sorry, I encountered an error while processing your request. Try Chrome Canary?";
+            let response = "Sorry, I couldn't generate a response. Try Chrome Canary?";
             try {
                 const prompt = `The user prompted: ${message}\n\nPlease provide a helpful response based on the page content and context, making the answer as concise as possible, 3 sentences or fewer.`;
                 response = await languageModel.prompt(prompt);
             } catch (error) {
-                console.error("Error generating response:", error);
+                console.error("Error generating response: ", error);
             } finally {
                 addMessage('ai', response);
                 removeTypingIndicator(typingDiv);
