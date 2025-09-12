@@ -128,13 +128,14 @@ button {
 }
     </style>
 </head>
-<body>Copied from https://chrome.dev/web-ai-demos/proofreader-api-playground/ just to test an OT token
+<body>
 <head><meta http-equiv="origin-trial" content="Ajvg05l+oNoPhqPq7VYH0XZdSVlmjROp0xyrF0G2Wn/p+Lio1B7XVlRv6PMGHhLeXB3IqIFmcywheVe5/QQBZAUAAABWeyJvcmlnaW4iOiJodHRwczovL2pzZmlkZGxlLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9vZnJlYWRlckFQSSIsImV4cGlyeSI6MTc3OTE0ODgwMH0="></head>
 <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;✍️&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="style.css">
 
     <h1>✍️ Proofreader API</h1>
+    <h2>Copied from <a href="https://chrome.dev/web-ai-demos/proofreader-api-playground/">chrome.dev/web-ai-demos/proofreader-api-playground</a> just to test an <a href="https://developer.chrome.com/origintrials/#/view_trial/1988902185437495297">Origin Trial</a> token</h2>
     <p class="error">
       😕 Your browser doesn't support the Proofreader API. Using static
       <a href="fake.json">mockup data</a>.
@@ -224,9 +225,7 @@ const button = popover.querySelector('button');
   }
 
   let proofreader;
-  if (!proofreaderAPISupported) {
-    document.querySelector('.error').hidden = false;
-  }
+  document.querySelector('.error').hidden = proofreaderAPISupported;
 
   form.querySelector('button').disabled = false;
   form.addEventListener('submit', async (e) => {
