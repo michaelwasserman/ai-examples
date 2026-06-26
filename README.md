@@ -2,8 +2,6 @@
 
 Simple examples using Chrome's Built-In AI APIs.
 
-More coming soon!
-
 ## [InSite AI Pagebot](https://michaelwasserman.github.io/ai-examples/pagebot.html) - A Floating AI Chat Assistant for Any Website!
 A simple drop-in on-device chat bot that can answer questions about a website, summarize page content, and translate responses.
 
@@ -14,3 +12,10 @@ A simple drop-in on-device chat bot that can answer questions about a website, s
 
 Try the predecessor LanguageModel + Summarizer chat mole example created with lmarena.com:
   - [lmarena_chatbot_1a](https://michaelwasserman.github.io/ai-examples/lmarena_chatbot_1a.html) (mistral-medium-2505) got my vote over [lmarena_chatbot_1b](https://michaelwasserman.github.io/ai-examples/lmarena_chatbot_1b.html) (folsom-exp-v1.5)
+
+## [Chroutine Extension](./chroutine-extension/) - Basic On-Device AI Routine Automation POC
+A Chrome extension that uses the Prompt API to automate workflows with on-device inference triggered by routines.
+
+  * Schedules prompts to run at specific times using `chrome.alarms`.
+  * Monitors events (e.g. GitHub repository commits) and runs prompts automatically.
+  * Implemented with static vanilla HTML/JS/CSS, using `chrome.storage.local` to persist prompt libraries and routine state.
