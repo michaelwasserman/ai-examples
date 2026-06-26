@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Chroutine Prompt Manager</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <h1>
+    <svg style="width: 20px; height: 20px; fill: var(--primary);" viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+    </svg>
+    Chroutine Prompt Library
+  </h1>
+  <p class="subtitle">Manage text templates for AI automation routines.</p>
+
+  <form id="prompt-form">
+    <input type="hidden" id="prompt-id">
+    <div class="form-group">
+      <label for="prompt-title-input">Title</label>
+      <input type="text" id="prompt-title-input" placeholder="e.g. TL;DR Summarizer" required>
+    </div>
+    <div class="form-group">
+      <label for="prompt-content-input">Prompt Content</label>
+      <textarea id="prompt-content-input" placeholder="e.g. Summarize the following text in 3 bullet points: {{input}}" required></textarea>
+    </div>
+
+    <div class="routines-section">
+      <label>Routines / Triggers</label>
+      <div id="form-routines-list" class="form-routines-list">
+        <!-- Render currently added routines for the prompt -->
+      </div>
+      
+      <div class="routine-input-group">
+        <div class="form-group" style="margin-bottom: 8px;">
+          <label for="routine-trigger-type">Trigger Type</label>
+          <select id="routine-trigger-type" style="width: 100%; padding: 6px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 0.8rem;">
+            <option value="scheduled">Repeating Schedule</option>
+            <option value="github">GitHub Monitor</option>
+          </select>
+        </div>
+
+        <!-- Scheduled trigger inputs -->
+        <div id="scheduled-trigger-inputs" class="routine-controls">
+          <input type="time" id="routine-time" value="09:00">
+          <div class="days-toggle-container">
+            <button type="button" class="day-btn" data-day="0" title="Sunday">S</button>
+            <button type="button" class="day-btn" data-day="1" title="Monday">M</button>
+            <button type="button" class="day-btn" data-day="2" title="Tuesday">T</button>
+            <button type="button" class="day-btn" data-day="3" title="Wednesday">W</button>
+            <button type="button" class="day-btn" data-day="4" title="Thursday">T</button>
+            <button type="button" class="day-btn" data-day="5" title="Friday">F</button>
+            <button type="button" class="day-btn" data-day="6" title="Saturday">S</button>
+          </div>
+        </div>
+
+        <!-- GitHub trigger inputs -->
+        <div id="github-trigger-inputs" style="display: none; flex-direction: column; gap: 8px;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="github-url-input">GitHub Repository URL</label>
+            <input type="text" id="github-url-input" placeholder="e.g. https://github.com/owner/repo">
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="github-frequency-select">Polling Frequency</label>
+            <select id="github-frequency-select" style="width: 100%; padding: 6px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 0.8rem;">
+              <option value="daily">Daily</option>
+              <option value="high">High (once per minute)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="routine-add-actions" style="margin-top: 6px;">
+          <button type="button" id="add-routine-btn" class="btn-secondary" style="flex-grow: 1;">Add Routine</button>
+          <button type="button" id="cancel-routine-btn" class="btn-secondary" style="display: none;">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" id="submit-btn" class="btn-primary">Add Prompt</button>
+      <button type="button" id="cancel-btn" class="btn-secondary" style="display: none;">Cancel</button>
+    </div>
+  </form>
+
+  <div class="prompt-list">
+    <h2>Saved Prompts</h2>
+    <div id="prompts-container">
+      <!-- Dynamic list elements will be added here -->
+    </div>
+  </div>
+
+  <div class="history-section">
+    <div class="history-header" id="history-header">
+      <h2>Execution History</h2>
+      <span class="history-toggle-icon">▼</span>
+    </div>
+    <div id="history-content" class="history-content" style="display: none;">
+      <div class="history-actions">
+        <button type="button" id="clear-history-btn" class="btn-secondary btn-sm">Clear History</button>
+      </div>
+      <div id="history-list" class="history-list">
+        <!-- Dynamic history elements will be added here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>

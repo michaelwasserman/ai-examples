@@ -1,0 +1,19 @@
+{
+  "name": "Chroutine Extension",
+  "version": "0.0.2",
+  "description": "A simple extension for chroutines",
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "sidePanel"
+  ],
+  "action": {},
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "manifest_version": 3
+}
