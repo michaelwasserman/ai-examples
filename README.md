@@ -2,6 +2,8 @@
 
 Simple examples using Chrome's Built-In AI APIs.
 
+More coming soon!
+
 ## [InSite AI Pagebot](https://michaelwasserman.github.io/ai-examples/pagebot.html) - A Floating AI Chat Assistant for Any Website!
 A simple drop-in on-device chat bot that can answer questions about a website, summarize page content, and translate responses.
 
